@@ -23,7 +23,9 @@ const index = async function (req, res) {
 
 const create = async function (req, res) {
   try {
-    const restaurant = await Restaurant.create(req.body)
+    const newRestaurant = Restaurant.build(req.body)
+    newRestaurant.userId = 1
+    const restaurant = await newRestaurant.save()
     res.json(restaurant)
   } catch (err) {
     res.status(500).send(err)
